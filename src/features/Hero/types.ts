@@ -1,0 +1,41 @@
+export interface Review {
+  text: string;
+  author: string;
+}
+
+export interface Category {
+  name: string;
+  price: string;
+}
+
+export interface StatItem {
+  val: string;
+  label: string;
+}
+
+export interface ProcessStep {
+  name: string;
+  icon?: React.ReactNode;
+}
+
+export interface Brand {
+  name: string;
+  font: string;
+}
+
+export interface Founder {
+  firstName: string;
+  lastName: string;
+  image: string;
+  alt: string;
+}
+
+export interface ProcessStepIconItem {
+  name: string;
+  icon: React.ReactNode;
+}
+
+export interface Service {
+  name: string;
+  icon: React.ReactNode;
+}
