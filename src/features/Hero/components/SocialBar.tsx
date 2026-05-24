@@ -6,7 +6,7 @@ export default function SocialBar({ className = '' }: { className?: string }) {
       <a
         href="#"
         aria-label="facebook"
-        className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105"
+        className="hidden h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105 sm:flex"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path
@@ -19,7 +19,7 @@ export default function SocialBar({ className = '' }: { className?: string }) {
       <a
         href="#"
         aria-label="linkedin"
-        className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105"
+        className="hidden h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105 sm:flex"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path
@@ -39,7 +39,7 @@ export default function SocialBar({ className = '' }: { className?: string }) {
       <a
         href="#"
         aria-label="youtube"
-        className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105"
+        className="hidden h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105 sm:flex"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path
@@ -52,7 +52,7 @@ export default function SocialBar({ className = '' }: { className?: string }) {
       <a
         href="#"
         aria-label="instagram"
-        className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105"
+        className="hidden h-11 w-11 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105 sm:flex"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path

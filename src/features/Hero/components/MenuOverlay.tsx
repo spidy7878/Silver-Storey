@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import Link from 'next/link';
 
 interface MenuOverlayProps {
   isOpen: boolean;
@@ -20,6 +21,18 @@ const menuItems = [
 
 // Items that get an orange dot to their right
 const dotsAfter = new Set(['Contact', 'How it Works']);
+
+// Items that route to actual pages (others use hash anchors)
+const menuRoutes: Partial<Record<string, string>> = {
+  Home: '/',
+  'Residential Projects': '/residential-projects',
+  'Commercial Projects': '/commercial-projects',
+  Contact: '/contact',
+  'How it Works': '/how-it-works',
+  'About Us': '/about-us',
+  'Pricing Structure': '/pricing-structure',
+  'Terms & Conditions': '/terms-conditions',
+};
 
 export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
   // Lock body scroll while open
@@ -109,8 +122,11 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                 />
               )}
 
-              <a
-                href={`#${item.toLowerCase().replace(/[\s&]+/g, '-')}`}
+              <Link
+                href={
+                  menuRoutes[item] ??
+                  `#${item.toLowerCase().replace(/[\s&]+/g, '-')}`
+                }
                 onClick={onClose}
                 style={{
                   display: 'block',
@@ -129,7 +145,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
               >
                 {item}
-              </a>
+              </Link>
 
               {/* Orange dot for Contact / How it Works */}
               {dotsAfter.has(item) && (

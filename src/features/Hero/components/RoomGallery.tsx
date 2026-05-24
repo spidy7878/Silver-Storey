@@ -1,5 +1,12 @@
 import React from 'react';
 
+const rooms = [
+  { label: '2 BHK', src: '/images/2bhk.avif' },
+  { label: '3 BHK', src: '/images/3bhk.avif' },
+  { label: '4 BHK', src: '/images/4bhk.avif' },
+  { label: '5 BHK', src: '/images/5bhk.avif' },
+] as const;
+
 export default function RoomGallery() {
   return (
     <div className="mx-auto max-w-360 px-6 py-24 sm:py-32">
@@ -35,8 +42,55 @@ export default function RoomGallery() {
         </div>
       </div>
 
-      {/* Staggered Masonry Grid */}
-      <div className="grid grid-cols-2 items-start gap-4 md:grid-cols-4 lg:gap-6">
+      {/* Mobile marquee */}
+      <div className="-mx-6 overflow-hidden sm:hidden">
+        <div
+          className="flex hover:[animation-play-state:paused]"
+          style={{ animation: 'marquee 22s linear infinite' }}
+        >
+          <div className="flex shrink-0 gap-4 pr-4">
+            {rooms.map((room) => (
+              <div
+                key={room.label}
+                className="flex w-[200px] shrink-0 flex-col"
+              >
+                <h3 className="mb-3 font-serif text-base font-medium tracking-wide text-[#615147]">
+                  {room.label}
+                </h3>
+                <div className="aspect-4/5 overflow-hidden rounded-xl shadow-sm">
+                  <img
+                    src={room.src}
+                    alt={room.label}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex shrink-0 gap-4 pr-4">
+            {rooms.map((room) => (
+              <div
+                key={`clone-${room.label}`}
+                className="flex w-[200px] shrink-0 flex-col"
+              >
+                <h3 className="mb-3 font-serif text-base font-medium tracking-wide text-[#615147]">
+                  {room.label}
+                </h3>
+                <div className="aspect-4/5 overflow-hidden rounded-xl shadow-sm">
+                  <img
+                    src={room.src}
+                    alt={room.label}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Staggered Masonry Grid */}
+      <div className="hidden grid-cols-2 items-start gap-4 sm:grid md:grid-cols-4 lg:gap-6">
         {/* 2 BHK */}
         <div className="flex flex-col pt-12">
           <h3 className="mb-4 font-serif text-xl font-medium tracking-wide text-[#615147]">

@@ -36,7 +36,30 @@ export default function Hero() {
       <div className="bg-[#e9e4df] pt-16 text-black">
         {/* 1. Category Price Cards */}
         <div className="mx-auto max-w-360 px-6">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6 lg:gap-6">
+          {/* Mobile marquee */}
+          <div className="-mx-6 overflow-hidden sm:hidden">
+            <div
+              className="flex hover:[animation-play-state:paused]"
+              style={{ animation: 'marquee 20s linear infinite' }}
+            >
+              <div className="flex shrink-0 gap-4 pr-4">
+                {categories.map((cat, i) => (
+                  <div key={i} className="w-[160px] shrink-0">
+                    <CategoryCard {...cat} />
+                  </div>
+                ))}
+              </div>
+              <div className="flex shrink-0 gap-4 pr-4">
+                {categories.map((cat, i) => (
+                  <div key={`clone-${i}`} className="w-[160px] shrink-0">
+                    <CategoryCard {...cat} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* Desktop grid */}
+          <div className="hidden grid-cols-2 gap-4 sm:grid md:grid-cols-3 lg:grid-cols-6 lg:gap-6">
             {categories.map((cat, i) => (
               <CategoryCard key={i} {...cat} />
             ))}

@@ -58,8 +58,8 @@ export default function WarrantySection() {
         </div>
 
         {/* Center Laptop */}
-        <div className="relative w-full max-w-xl lg:w-1/3">
-          <div className="relative aspect-16/10 overflow-hidden rounded-t-2xl border-6 border-b-12 border-black bg-black shadow-2xl sm:rounded-t-3xl sm:border-8 sm:border-b-14">
+        <div className="relative w-full max-w-[260px] sm:max-w-sm md:max-w-md lg:w-1/3 lg:max-w-none">
+          <div className="relative aspect-16/10 overflow-hidden rounded-t-xl border-4 border-b-8 border-black bg-black shadow-2xl sm:rounded-t-2xl sm:border-6 sm:border-b-12 md:rounded-t-3xl md:border-8 md:border-b-14">
             <img
               src="/images/laptop.avif"
               alt="Interior preview screen"
@@ -67,7 +67,7 @@ export default function WarrantySection() {
             />
           </div>
           {/* Laptop Base */}
-          <div className="mx-auto h-6 w-[115%] -translate-x-[6%] rounded-t-sm rounded-b-2xl bg-black sm:h-3 sm:w-[115%] sm:-translate-x-[6%]"></div>
+          <div className="mx-auto h-3 w-[115%] -translate-x-[6%] rounded-t-sm rounded-b-xl bg-black sm:h-4 md:h-3"></div>
         </div>
 
         {/* Right Texts */}
