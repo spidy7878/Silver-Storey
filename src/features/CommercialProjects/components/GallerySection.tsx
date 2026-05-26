@@ -5,13 +5,13 @@ import { galleryProjects, type GalleryProject } from '../constants';
 
 function GalleryCard({ project }: { project: GalleryProject }) {
   return (
-    <div className="relative h-[55vh] w-[260px] flex-shrink-0 overflow-hidden rounded-2xl shadow-lg sm:h-[60vh] sm:w-[300px] md:w-[320px]">
+    <div className="relative h-[55vh] w-65 shrink-0 overflow-hidden rounded-2xl shadow-lg sm:h-[60vh] sm:w-75 md:w-80">
       <img
         src={project.image}
         alt={project.title}
         className="h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent" />
       <div className="absolute bottom-0 left-0 p-5">
         <h3 className="mb-1 text-lg leading-snug font-bold text-white">
           {project.title}
@@ -24,7 +24,14 @@ function GalleryCard({ project }: { project: GalleryProject }) {
   );
 }
 
-export default function GallerySection() {
+interface GallerySectionProps {
+  /** Gallery items from Sanity — falls back to hardcoded constants when empty */
+  projects?: GalleryProject[];
+}
+
+export default function GallerySection({
+  projects = galleryProjects,
+}: GallerySectionProps) {
   return (
     <section className="overflow-hidden bg-[#f4f4f4] pt-16 pb-32">
       <h2 className="mb-10 text-center text-3xl font-semibold tracking-tight text-black sm:text-4xl md:text-5xl">
@@ -39,13 +46,13 @@ export default function GallerySection() {
         >
           {/* Copy 1 */}
           <div className="flex shrink-0 gap-6 pr-6">
-            {galleryProjects.map((p) => (
+            {projects.map((p) => (
               <GalleryCard key={p.id} project={p} />
             ))}
           </div>
           {/* Copy 2 — seamless loop */}
           <div className="flex shrink-0 gap-6 pr-6">
-            {galleryProjects.map((p) => (
+            {projects.map((p) => (
               <GalleryCard key={`clone-${p.id}`} project={p} />
             ))}
           </div>

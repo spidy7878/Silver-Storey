@@ -6,6 +6,8 @@ export interface Review {
 export interface Category {
   name: string;
   price: string;
+  /** Resolved Sanity CDN image URL — optional, falls back to plain background */
+  imageUrl?: string;
 }
 
 export interface StatItem {

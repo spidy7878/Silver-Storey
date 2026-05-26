@@ -15,7 +15,11 @@ import AboutProcess from './components/AboutProcess';
 import { reviews } from '../Hero/constants';
 import { useSlider } from '../../hooks/useSlider';
 
-export default function AboutUsPage() {
+export default function AboutUsPage({
+  projectPages = [],
+}: {
+  projectPages?: { title: string; slug: string }[];
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { currentSlide, nextSlide, prevSlide, setCurrentSlide } = useSlider(
     reviews.length,
@@ -67,7 +71,11 @@ export default function AboutUsPage() {
       <AboutFoundersSection />
 
       <HeroControls onMenuClick={() => setIsMenuOpen(true)} />
-      <MenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MenuOverlay
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        projectPages={projectPages}
+      />
     </div>
   );
 }

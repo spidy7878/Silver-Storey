@@ -2,11 +2,21 @@
 
 import React from 'react';
 
-export default function CommercialHero() {
+interface CommercialHeroProps {
+  heroImageUrl?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+}
+
+export default function CommercialHero({
+  heroImageUrl,
+  heroTitle = 'Commercial',
+  heroSubtitle = 'spaces',
+}: CommercialHeroProps) {
   return (
     <>
       <img
-        src="/images/5bhk.avif"
+        src={heroImageUrl ?? '/images/5bhk.avif'}
         alt="Commercial Interior Design"
         className="absolute inset-0 h-full w-full object-cover"
       />
@@ -31,10 +41,10 @@ export default function CommercialHero() {
         {/* Heading */}
         <h1 className="max-w-4xl leading-tight font-normal tracking-tight text-white">
           <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-            Commercial
+            {heroTitle}
           </span>
           <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-            spaces
+            {heroSubtitle}
           </span>
         </h1>
       </div>

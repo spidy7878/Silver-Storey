@@ -7,7 +7,11 @@ import MenuOverlay from '../Hero/components/MenuOverlay';
 import ContactForm from './components/ContactForm';
 import MapSection from './components/MapSection';
 
-export default function ContactPage() {
+export default function ContactPage({
+  projectPages = [],
+}: {
+  projectPages?: { title: string; slug: string }[];
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -16,7 +20,11 @@ export default function ContactPage() {
       <ContactForm />
       <MapSection />
       <HeroControls onMenuClick={() => setIsMenuOpen(true)} />
-      <MenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MenuOverlay
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        projectPages={projectPages}
+      />
     </div>
   );
 }

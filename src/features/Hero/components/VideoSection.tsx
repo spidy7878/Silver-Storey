@@ -1,109 +1,203 @@
-import React from 'react';
+'use client';
 
-const VIDEO_ITEMS = [1, 2, 3, 4] as const;
+import React, { useState } from 'react';
+import type { SanityVideo } from '../../../lib/sanity/types';
 
-function VideoCard({ item }: { item: number }) {
+interface VideoItem {
+  id: string;
+  title: string;
+  youtubeId: string;
+}
+
+function VideoCard({
+  title,
+  youtubeId,
+  isPlaying,
+  onPlay,
+}: VideoItem & { isPlaying: boolean; onPlay: () => void }) {
+  const thumbnailUrl = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+  const youtubeUrl = `https://www.youtube.com/watch?v=${youtubeId}`;
+
   return (
-    <div className="group relative aspect-video w-full cursor-pointer overflow-hidden bg-black shadow-lg transition-transform hover:-translate-y-1">
-      {/* Fallback for YouTube embed mockup */}
-      <img
-        src="/images/laptop.avif"
-        alt={`Video ${item}`}
-        className="h-full w-full object-cover opacity-60 transition-opacity group-hover:opacity-80"
-      />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex h-12 w-16 items-center justify-center rounded-xl bg-red-600 transition-transform group-hover:scale-110">
-          <svg viewBox="0 0 24 24" fill="white" className="h-6 w-6">
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Video Info Overlay Mockup */}
-      <div className="absolute top-0 left-0 flex w-full items-start justify-between bg-linear-to-b from-black/80 to-transparent p-4">
-        <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-full bg-white/20 p-1">
-            <img
-              src="/images/home_logo.avif"
-              alt="Channel"
-              className="h-full w-full rounded-full object-cover"
-            />
-          </div>
-          <div>
-            <p className="line-clamp-1 text-sm font-medium text-white">
-              Project Showcase {item}
-            </p>
-            <p className="text-xs text-white/70">Silver Storey</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Watch on YouTube Mockup */}
-      <div className="absolute bottom-0 left-0 flex w-full items-center justify-between bg-linear-to-t from-black/80 to-transparent p-4 pb-3">
-        <div className="flex gap-4">
-          {/* Share icon */}
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            className="h-4 w-4"
+    <div className="relative aspect-video w-72 shrink-0 overflow-hidden rounded-2xl bg-black shadow-lg sm:w-80 md:w-96">
+      {isPlaying ? (
+        <>
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`}
+            className="h-full w-full"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            title={title}
+          />
+          {/* Close button */}
+          <button
+            onClick={onPlay}
+            className="absolute top-2 right-2 z-10 rounded-full bg-black/60 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/90"
+            aria-label="Stop video"
           >
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-            <polyline points="16 6 12 2 8 6" />
-            <line x1="12" y1="2" x2="12" y2="15" />
-          </svg>
-          {/* Watch Later icon */}
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            className="h-4 w-4"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
-        </div>
-        <div className="flex items-center gap-1.5 rounded-sm bg-black/60 px-2 py-1 text-xs text-white backdrop-blur">
-          Watch on <span className="font-bold">YouTube</span>
-        </div>
-      </div>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              className="h-4 w-4"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </>
+      ) : (
+        <button
+          onClick={onPlay}
+          className="group relative h-full w-full cursor-pointer"
+          aria-label={`Play ${title}`}
+        >
+          {/* Thumbnail */}
+          <img
+            src={thumbnailUrl}
+            alt={title}
+            className="h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-95"
+          />
+
+          {/* Play button */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="flex h-12 w-16 items-center justify-center rounded-xl bg-red-600 shadow-lg transition-transform group-hover:scale-110">
+              <svg viewBox="0 0 24 24" fill="white" className="h-6 w-6">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Top bar — title + expand icon */}
+          <div className="absolute top-0 left-0 flex w-full items-start justify-between bg-linear-to-b from-black/80 to-transparent p-3">
+            <div className="flex items-center gap-2">
+              <div className="h-7 w-7 overflow-hidden rounded-full">
+                <img
+                  src="/images/home_logo.avif"
+                  alt="Silver Storey"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="text-left">
+                <p className="line-clamp-1 text-xs font-medium text-white">
+                  {title}
+                </p>
+                <p className="text-xs text-white/70">Silver Storey</p>
+              </div>
+            </div>
+
+            {/* Expand — opens YouTube in new tab */}
+            <a
+              href={youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="rounded-md bg-black/50 p-1.5 text-white/80 backdrop-blur-sm transition-colors hover:bg-black/80 hover:text-white"
+              aria-label="Open on YouTube"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="h-4 w-4"
+              >
+                <path d="M15 3h6v6" />
+                <path d="M10 14L21 3" />
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              </svg>
+            </a>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="absolute bottom-0 left-0 flex w-full items-center justify-end bg-linear-to-t from-black/80 to-transparent p-3">
+            <div className="flex items-center gap-1 rounded-sm bg-black/60 px-2 py-1 text-xs text-white backdrop-blur-sm">
+              Watch on <span className="ml-1 font-bold">YouTube</span>
+            </div>
+          </div>
+        </button>
+      )}
     </div>
   );
 }
 
-export default function VideoSection() {
+const STATIC_VIDEOS: VideoItem[] = [1, 2, 3, 4].map((i) => ({
+  id: `static-${i}`,
+  title: `Project Showcase ${i}`,
+  youtubeId: 'dQw4w9WgXcQ',
+}));
+
+interface VideoSectionProps {
+  videos?: SanityVideo[];
+}
+
+export default function VideoSection({ videos = [] }: VideoSectionProps) {
+  const [playingId, setPlayingId] = useState<string | null>(null);
+
+  const items: VideoItem[] =
+    videos.length > 0
+      ? videos.map((v) => ({
+          id: v._id,
+          title: v.title,
+          youtubeId: v.youtubeId,
+        }))
+      : STATIC_VIDEOS;
+
+  function handlePlay(instanceId: string) {
+    setPlayingId((prev) => (prev === instanceId ? null : instanceId));
+  }
+
+  // Repeat until at least 6 items so only one marquee copy is visible at a time
+  const filled =
+    items.length > 0
+      ? Array.from({ length: Math.ceil(6 / items.length) }, () => items).flat()
+      : items;
+
   return (
-    <div className="mx-auto max-w-360 px-6 py-24 sm:py-32">
-      {/* Mobile marquee */}
-      <div className="-mx-6 overflow-hidden sm:hidden">
+    <section className="overflow-hidden py-24 sm:py-32">
+      <h2 className="mb-10 text-center text-3xl font-semibold tracking-tight text-black sm:text-4xl md:text-5xl">
+        Our Projects
+      </h2>
+
+      <div className="overflow-hidden">
         <div
-          className="flex hover:[animation-play-state:paused]"
-          style={{ animation: 'marquee 25s linear infinite' }}
+          className="flex"
+          style={{
+            animation: 'marquee 30s linear infinite',
+            animationPlayState: playingId ? 'paused' : 'running',
+          }}
         >
-          <div className="flex shrink-0 gap-4 pr-4">
-            {VIDEO_ITEMS.map((item) => (
-              <div key={item} className="w-[260px] shrink-0">
-                <VideoCard item={item} />
-              </div>
-            ))}
+          {/* Copy 1 */}
+          <div className="flex shrink-0 gap-6 pr-6 pl-6">
+            {filled.map((v, i) => {
+              const instanceId = `orig-${v.id}-${i}`;
+              return (
+                <VideoCard
+                  key={instanceId}
+                  {...v}
+                  isPlaying={playingId === instanceId}
+                  onPlay={() => handlePlay(instanceId)}
+                />
+              );
+            })}
           </div>
-          <div className="flex shrink-0 gap-4 pr-4">
-            {VIDEO_ITEMS.map((item) => (
-              <div key={`clone-${item}`} className="w-[260px] shrink-0">
-                <VideoCard item={item} />
-              </div>
-            ))}
+          {/* Copy 2 — seamless loop */}
+          <div className="flex shrink-0 gap-6 pr-6">
+            {filled.map((v, i) => {
+              const instanceId = `clone-${v.id}-${i}`;
+              return (
+                <VideoCard
+                  key={instanceId}
+                  {...v}
+                  isPlaying={playingId === instanceId}
+                  onPlay={() => handlePlay(instanceId)}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
-      {/* Desktop grid */}
-      <div className="hidden gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-4">
-        {VIDEO_ITEMS.map((item) => (
-          <VideoCard key={item} item={item} />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 }

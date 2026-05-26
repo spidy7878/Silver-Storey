@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { toast } from 'sonner';
+import CalendlyModal from '@/components/CalendlyModal';
 
 // ── Country data ──────────────────────────────────────────────────────────────
 interface Country {
@@ -192,122 +194,190 @@ export default function ContactForm() {
   const [projectType, setProjectType] = useState<ProjectType>('');
   const [selectedCountry, setSelectedCountry] =
     useState<Country>(DEFAULT_COUNTRY);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [budget, setBudget] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [calendlyOpen, setCalendlyOpen] = useState(false);
 
   const numbersOnly = (e: React.FormEvent<HTMLInputElement>) => {
     e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
   };
 
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!name.trim() || !phone.trim()) {
+      toast.error('Name and phone are required.');
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: `${selectedCountry.code} ${phone.trim()}`,
+          address: address.trim(),
+          projectType,
+          budget: budget.trim(),
+        }),
+      });
+      if (!res.ok) {
+        const data = (await res.json()) as { error?: string };
+        throw new Error(data.error ?? 'Something went wrong.');
+      }
+      toast.success("We'll be in touch soon!", {
+        description: 'Your consultation request was sent successfully.',
+      });
+      setName('');
+      setPhone('');
+      setAddress('');
+      setBudget('');
+      setProjectType('');
+    } catch (err: unknown) {
+      toast.error(
+        err instanceof Error ? err.message : 'Failed to send. Try again.',
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
-    <div className="cursor-default bg-[#f0efec] px-6 py-20 sm:py-28">
-      {/* Header */}
-      <div className="mx-auto max-w-4xl text-center">
-        <h1 className="mb-4 text-4xl font-semibold tracking-wide sm:text-5xl lg:text-6xl">
-          Book your free Consultation
-        </h1>
-        <p className="mb-8 text-sm font-medium text-black/70 sm:text-base">
-          It&apos;s time to live your dreams!
-        </p>
-        <button className="mb-16 animate-bounce rounded-full border border-black bg-transparent px-8 py-2.5 text-sm font-medium transition-colors [animation-duration:1.8s] [animation-timing-function:ease-in-out] hover:bg-black hover:text-white">
-          Book Now
-        </button>
-      </div>
+    <>
+      <CalendlyModal
+        isOpen={calendlyOpen}
+        onClose={() => setCalendlyOpen(false)}
+      />
 
-      {/* Form */}
-      <div className="mx-auto max-w-4xl">
-        <form className="space-y-6">
-          {/* Name + Phone */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div>
-              <label className="mb-2 block text-sm font-medium text-black">
-                Name
-              </label>
-              <input
-                type="text"
-                placeholder="First name"
-                className={boxInput}
-              />
-            </div>
+      <div className="cursor-default bg-[#f0efec] px-6 py-20 sm:py-28">
+        {/* Header */}
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="mb-4 text-4xl font-semibold tracking-wide sm:text-5xl lg:text-6xl">
+            Book your free Consultation
+          </h1>
+          <p className="mb-8 text-sm font-medium text-black/70 sm:text-base">
+            It&apos;s time to live your dreams!
+          </p>
+          <button
+            onClick={() => setCalendlyOpen(true)}
+            className="mb-16 animate-bounce rounded-full border border-black bg-transparent px-8 py-2.5 text-sm font-medium transition-colors [animation-duration:1.8s] [animation-timing-function:ease-in-out] hover:bg-black hover:text-white"
+          >
+            Book Now
+          </button>
+        </div>
 
-            <div>
-              <label className="mb-2 block text-sm font-medium text-black">
-                Phone
-              </label>
-              <div className="flex items-center gap-2 rounded-md border border-black/20 px-4 py-3 transition focus-within:border-black/60">
-                <CountryDropdown
-                  selected={selectedCountry}
-                  onSelect={setSelectedCountry}
-                />
-                <div className="h-4 w-px shrink-0 bg-black/20" />
+        {/* Form */}
+        <div className="mx-auto max-w-4xl">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Name + Phone */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-sm font-medium text-black">
+                  Name
+                </label>
                 <input
-                  type="tel"
-                  inputMode="numeric"
-                  placeholder="Phone"
-                  onInput={numbersOnly}
-                  className="flex-1 bg-transparent text-sm outline-none placeholder:text-black/35"
+                  type="text"
+                  placeholder="First name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={boxInput}
                 />
               </div>
-            </div>
-          </div>
 
-          {/* Address */}
-          <div>
-            <label className="mb-2 block text-sm font-medium text-black">
-              Address
-            </label>
-            <input type="text" className={boxInput} />
-          </div>
-
-          {/* Single choice + Budget */}
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
-            <div>
-              <label className="mb-3 block text-sm font-medium text-black">
-                Single choice
-              </label>
-              <div className="space-y-3">
-                {(['Residential', 'Commercial'] as const).map((type) => (
-                  <label
-                    key={type}
-                    className="flex cursor-pointer items-center gap-3"
-                  >
-                    <input
-                      type="radio"
-                      name="projectType"
-                      value={type}
-                      checked={projectType === type}
-                      onChange={() => setProjectType(type)}
-                      className="h-4 w-4 accent-black"
-                    />
-                    <span className="text-sm font-medium">{type}</span>
-                  </label>
-                ))}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-black">
+                  Phone
+                </label>
+                <div className="flex items-center gap-2 rounded-md border border-black/20 px-4 py-3 transition focus-within:border-black/60">
+                  <CountryDropdown
+                    selected={selectedCountry}
+                    onSelect={setSelectedCountry}
+                  />
+                  <div className="h-4 w-px shrink-0 bg-black/20" />
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    placeholder="Phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    onInput={numbersOnly}
+                    className="flex-1 bg-transparent text-sm outline-none placeholder:text-black/35"
+                  />
+                </div>
               </div>
             </div>
 
+            {/* Address */}
             <div>
               <label className="mb-2 block text-sm font-medium text-black">
-                Budget
+                Address
               </label>
               <input
                 type="text"
-                inputMode="numeric"
-                placeholder="e.g. 500000"
-                onInput={numbersOnly}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 className={boxInput}
               />
             </div>
-          </div>
 
-          {/* Submit */}
-          <div className="flex justify-center pt-8">
-            <button
-              type="submit"
-              className="rounded-full bg-black px-12 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+            {/* Single choice + Budget */}
+            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
+              <div>
+                <label className="mb-3 block text-sm font-medium text-black">
+                  Single choice
+                </label>
+                <div className="space-y-3">
+                  {(['Residential', 'Commercial'] as const).map((type) => (
+                    <label
+                      key={type}
+                      className="flex cursor-pointer items-center gap-3"
+                    >
+                      <input
+                        type="radio"
+                        name="projectType"
+                        value={type}
+                        checked={projectType === type}
+                        onChange={() => setProjectType(type)}
+                        className="h-4 w-4 accent-black"
+                      />
+                      <span className="text-sm font-medium">{type}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-medium text-black">
+                  Budget
+                </label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="e.g. 500000"
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                  onInput={numbersOnly}
+                  className={boxInput}
+                />
+              </div>
+            </div>
+
+            {/* Submit */}
+            <div className="flex justify-center pt-8">
+              <button
+                type="submit"
+                disabled={loading}
+                className="rounded-full bg-black px-12 py-3 text-sm font-medium text-white transition-transform hover:scale-105 disabled:opacity-60 disabled:hover:scale-100"
+              >
+                {loading ? 'Sending…' : 'Submit'}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

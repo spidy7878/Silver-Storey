@@ -2,11 +2,21 @@
 
 import React from 'react';
 
-export default function ResidentialHero() {
+interface ResidentialHeroProps {
+  heroImageUrl?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+}
+
+export default function ResidentialHero({
+  heroImageUrl,
+  heroTitle = 'Residential',
+  heroSubtitle = 'designs',
+}: ResidentialHeroProps) {
   return (
     <>
       <img
-        src="/images/4bhk.avif"
+        src={heroImageUrl ?? '/images/4bhk.avif'}
         alt="Residential Interior Design"
         className="absolute inset-0 h-full w-full object-cover"
       />
@@ -31,10 +41,10 @@ export default function ResidentialHero() {
         {/* Heading */}
         <h1 className="max-w-4xl leading-tight font-normal tracking-tight text-white">
           <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-            Residential
+            {heroTitle}
           </span>
           <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-            designs
+            {heroSubtitle}
           </span>
         </h1>
       </div>

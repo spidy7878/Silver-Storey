@@ -1,5 +1,10 @@
 import PricingPage from '@/features/Pricing/PricingPage';
+import { sanityClient } from '@/lib/sanity/client';
+import { allProjectPagesQuery } from '@/lib/sanity/queries';
 
-export default function Page() {
-  return <PricingPage />;
+export default async function Page() {
+  const projectPages = await sanityClient
+    .fetch<{ title: string; slug: string }[]>(allProjectPagesQuery)
+    .catch(() => []);
+  return <PricingPage projectPages={projectPages} />;
 }

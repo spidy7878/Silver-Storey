@@ -6,12 +6,12 @@ import Link from 'next/link';
 interface MenuOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  projectPages?: { title: string; slug: string }[];
 }
 
-const menuItems = [
-  'Home',
-  'Residential Projects',
-  'Commercial Projects',
+const STATIC_TOP = ['Home'];
+const STATIC_BOTTOM = [
+  'Blog',
   'Contact',
   'How it Works',
   'About Us',
@@ -25,8 +25,7 @@ const dotsAfter = new Set(['Contact', 'How it Works']);
 // Items that route to actual pages (others use hash anchors)
 const menuRoutes: Partial<Record<string, string>> = {
   Home: '/',
-  'Residential Projects': '/residential-projects',
-  'Commercial Projects': '/commercial-projects',
+  Blog: '/blog',
   Contact: '/contact',
   'How it Works': '/how-it-works',
   'About Us': '/about-us',
@@ -34,7 +33,11 @@ const menuRoutes: Partial<Record<string, string>> = {
   'Terms & Conditions': '/terms-conditions',
 };
 
-export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
+export default function MenuOverlay({
+  isOpen,
+  onClose,
+  projectPages = [],
+}: MenuOverlayProps) {
   // Lock body scroll while open
   useEffect(() => {
     if (isOpen) {
@@ -106,9 +109,9 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
           className="w-full max-w-3xl text-center"
           style={{ listStyle: 'none', padding: 0, margin: 0 }}
         >
-          {menuItems.map((item, i) => (
+          {/* Static top: Home only */}
+          {STATIC_TOP.map((item, i) => (
             <li key={item} style={{ position: 'relative', display: 'block' }}>
-              {/* Active highlight for "Home" */}
               {i === 0 && (
                 <span
                   aria-hidden="true"
@@ -121,7 +124,6 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                   }}
                 />
               )}
-
               <Link
                 href={
                   menuRoutes[item] ??
@@ -132,7 +134,8 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                   display: 'block',
                   position: 'relative',
                   padding: '10px 0',
-                  fontFamily: '"Playfair Display", "Georgia", serif',
+                  fontFamily:
+                    'var(--font-space-grotesk), system-ui, sans-serif',
                   fontSize: 'clamp(11px, 2.25vw, 26px)',
                   fontWeight: 400,
                   letterSpacing: '0.01em',
@@ -146,8 +149,65 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
               >
                 {item}
               </Link>
+            </li>
+          ))}
 
-              {/* Orange dot for Contact / How it Works */}
+          {/* Dynamic pages from Sanity */}
+          {projectPages.map(({ title, slug }) => (
+            <li key={slug} style={{ position: 'relative', display: 'block' }}>
+              <Link
+                href={`/projects/${slug}`}
+                onClick={onClose}
+                style={{
+                  display: 'block',
+                  position: 'relative',
+                  padding: '10px 0',
+                  fontFamily:
+                    'var(--font-space-grotesk), system-ui, sans-serif',
+                  fontSize: 'clamp(11px, 2.25vw, 26px)',
+                  fontWeight: 400,
+                  letterSpacing: '0.01em',
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  lineHeight: 1.25,
+                  transition: 'opacity 0.15s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.75')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+              >
+                {title}
+              </Link>
+            </li>
+          ))}
+
+          {/* Static bottom items: Contact, How it Works, … */}
+          {STATIC_BOTTOM.map((item) => (
+            <li key={item} style={{ position: 'relative', display: 'block' }}>
+              <Link
+                href={
+                  menuRoutes[item] ??
+                  `#${item.toLowerCase().replace(/[\s&]+/g, '-')}`
+                }
+                onClick={onClose}
+                style={{
+                  display: 'block',
+                  position: 'relative',
+                  padding: '10px 0',
+                  fontFamily:
+                    'var(--font-space-grotesk), system-ui, sans-serif',
+                  fontSize: 'clamp(11px, 2.25vw, 26px)',
+                  fontWeight: 400,
+                  letterSpacing: '0.01em',
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  lineHeight: 1.25,
+                  transition: 'opacity 0.15s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.75')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+              >
+                {item}
+              </Link>
               {dotsAfter.has(item) && (
                 <span
                   aria-hidden="true"
@@ -194,11 +254,6 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
           </button>
         </div>
       </div>
-
-      {/* Playfair Display font */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
-      `}</style>
     </div>
   );
 }

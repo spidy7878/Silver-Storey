@@ -6,7 +6,11 @@ import MenuOverlay from '../Hero/components/MenuOverlay';
 import HowItWorksHero from './components/HowItWorksHero';
 import HowItWorksSteps from './components/HowItWorksSteps';
 
-export default function HowItWorksPage() {
+export default function HowItWorksPage({
+  projectPages = [],
+}: {
+  projectPages?: { title: string; slug: string }[];
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -14,7 +18,11 @@ export default function HowItWorksPage() {
       <HowItWorksHero />
       <HowItWorksSteps />
       <HeroControls onMenuClick={() => setIsMenuOpen(true)} />
-      <MenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MenuOverlay
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        projectPages={projectPages}
+      />
     </div>
   );
 }

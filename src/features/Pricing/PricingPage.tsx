@@ -4,7 +4,11 @@ import React, { useState } from 'react';
 import HeroControls from '../Hero/components/HeroControls';
 import MenuOverlay from '../Hero/components/MenuOverlay';
 
-export default function PricingPage() {
+export default function PricingPage({
+  projectPages = [],
+}: {
+  projectPages?: { title: string; slug: string }[];
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -267,7 +271,11 @@ export default function PricingPage() {
       </div>
 
       <HeroControls onMenuClick={() => setIsMenuOpen(true)} />
-      <MenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MenuOverlay
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        projectPages={projectPages}
+      />
     </div>
   );
 }

@@ -2,10 +2,17 @@ import React from 'react';
 import { Category } from '../types';
 
 export default function CategoryCard(props: Category) {
-  const { name, price } = props;
+  const { name, price, imageUrl } = props;
   return (
-    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-zinc-800 shadow-xl">
-      <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-black/70" />
+    <div className="relative h-56 w-full overflow-hidden rounded-2xl bg-zinc-800 shadow-xl sm:h-64 md:h-72">
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt={name}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      )}
+      <div className="absolute inset-0 bg-linear-to-br from-black/40 via-black/20 to-black/70" />
       <div className="absolute top-3 right-3 rounded-md bg-black/80 px-4 py-1.5 text-xs text-white backdrop-blur-md">
         {name}
       </div>
