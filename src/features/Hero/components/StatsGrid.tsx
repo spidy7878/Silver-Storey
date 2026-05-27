@@ -30,6 +30,7 @@ export default function StatsGrid({ items }: { items: StatItem[] }) {
             prefix={prefix}
             suffix={suffix}
             label={stat.label}
+            delay={i * 120}
           />
         );
       })}
@@ -42,15 +43,25 @@ function Stat({
   prefix,
   suffix,
   label,
+  delay = 0,
 }: {
   num: number;
   prefix?: string;
   suffix?: string;
   label: string;
+  delay?: number;
 }) {
-  const { ref, value } = useCountOnVisible(num, 700);
+  const { ref, value, visible } = useCountOnVisible(num, 700);
   return (
-    <div ref={ref as any} className="flex flex-col items-center justify-center">
+    <div
+      ref={ref as any}
+      className="flex flex-col items-center justify-center"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(2rem)',
+        transition: `opacity 0.6s ease-out ${delay}ms, transform 0.6s ease-out ${delay}ms`,
+      }}
+    >
       <div className="mb-3 text-5xl font-light sm:text-6xl">
         {prefix}
         {formatNumber(value)}

@@ -17,7 +17,8 @@ export interface StatItem {
 
 export interface ProcessStep {
   name: string;
-  icon?: React.ReactNode;
+  label: string;
+  image: string;
 }
 
 export interface Brand {
@@ -39,5 +40,5 @@ export interface ProcessStepIconItem {
 
 export interface Service {
   name: string;
-  icon: React.ReactNode;
+  image: string;
 }

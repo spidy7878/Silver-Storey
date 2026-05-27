@@ -33,25 +33,25 @@ export default function Footer() {
           <div className="flex w-full flex-col items-center gap-4 sm:gap-5">
             <a
               href="tel:+918336917221"
-              className="flex w-full max-w-70 items-center justify-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-transform hover:scale-105 sm:max-w-[320px]"
+              className="flex w-full max-w-52 items-center justify-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-transform hover:scale-105 sm:max-w-64"
             >
               Call +91 83369 17221
             </a>
             <button
               onClick={() => setCalendlyOpen(true)}
-              className="flex w-full max-w-85 items-center justify-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-transform hover:scale-105 sm:max-w-115"
+              className="flex w-full max-w-52 items-center justify-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-transform hover:scale-105 sm:max-w-64"
             >
               Book a meeting
             </button>
             <a
               href="mailto:care@silverstorey.com"
-              className="flex w-full max-w-85 items-center justify-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-transform hover:scale-105 sm:max-w-115"
+              className="flex w-full max-w-72 items-center justify-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-transform hover:scale-105 sm:max-w-80"
             >
               Email - care@silverstorey.com
             </a>
             <button
               onClick={() => setCalendlyOpen(true)}
-              className="flex w-full max-w-85 items-center justify-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-transform hover:scale-105 sm:max-w-115"
+              className="flex w-full max-w-52 items-center justify-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition-transform hover:scale-105 sm:max-w-64"
             >
               Book Free Consultation
             </button>

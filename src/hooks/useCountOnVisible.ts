@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 export function useCountOnVisible(target: number, duration = 800) {
   const ref = useRef<HTMLElement | null>(null);
   const [value, setValue] = useState(0);
+  const [visible, setVisible] = useState(false);
   const startedRef = useRef(false);
 
   useEffect(() => {
@@ -14,6 +15,7 @@ export function useCountOnVisible(target: number, duration = 800) {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !startedRef.current) {
             startedRef.current = true;
+            setVisible(true);
             const start = performance.now();
             const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 
@@ -35,5 +37,5 @@ export function useCountOnVisible(target: number, duration = 800) {
     return () => io.disconnect();
   }, [target, duration]);
 
-  return { ref, value } as const;
+  return { ref, value, visible } as const;
 }

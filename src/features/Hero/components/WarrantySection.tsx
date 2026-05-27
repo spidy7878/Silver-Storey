@@ -1,28 +1,21 @@
 import React from 'react';
 import ProcessStepCard from './ProcessStepCard';
 import { processSteps } from '../constants';
-import { processStepIcons } from '../icons';
 
 export default function WarrantySection() {
   return (
     <div className="relative mt-8">
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/5 to-transparent" />
-
       {/* Process Steps Grid */}
-      <div className="relative mx-auto max-w-360 px-6">
+      <div className="relative mx-auto max-w-360 px-48">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6 lg:gap-6">
-          {processSteps.map((step) => {
-            const stepWithIcon = processStepIcons.find(
-              (item) => item.name === step.name,
-            );
-            return (
-              <ProcessStepCard
-                key={step.name}
-                name={step.name}
-                icon={stepWithIcon?.icon}
-              />
-            );
-          })}
+          {processSteps.map((step) => (
+            <ProcessStepCard
+              key={step.name}
+              name={step.name}
+              label={step.label}
+              image={step.image}
+            />
+          ))}
         </div>
       </div>
 
@@ -38,21 +31,23 @@ export default function WarrantySection() {
 
       <div className="relative mt-12 flex flex-col items-center justify-center gap-12 lg:flex-row lg:items-center lg:gap-8">
         {/* Left Texts */}
-        <div className="flex w-full flex-col justify-center gap-8 text-center lg:w-1/3 lg:py-0 lg:text-center">
+        <div className="flex w-full flex-col justify-center gap-24 text-center lg:w-1/3 lg:py-0 lg:text-center">
           <div>
             <h3 className="mb-3 text-lg font-semibold tracking-wide">
               Experience 3D Visualization
             </h3>
             <p className="text-sm font-medium text-black/70">
-              Experience 3D visualization of your project before it begins.
+              Experience 3D visualization of your <br /> project before it
+              begins.
             </p>
           </div>
-          <div className="mt-8 lg:mt-0">
+          <div>
             <h3 className="mb-3 text-lg font-semibold tracking-wide">
               Guarantee 45 Days Delivery
             </h3>
             <p className="text-sm font-medium text-black/70">
-              We ensure your order is delivered within 45 days period.**
+              We ensure your order is delivered within <br />
+              45 days period.**
             </p>
           </div>
         </div>
@@ -71,22 +66,23 @@ export default function WarrantySection() {
         </div>
 
         {/* Right Texts */}
-        <div className="flex w-full flex-col justify-center gap-8 text-center lg:w-1/3 lg:py-0 lg:text-center">
+        <div className="flex w-full flex-col justify-center gap-24 text-center lg:w-1/3 lg:py-0 lg:text-center">
           <div>
             <h3 className="mb-3 text-lg font-semibold tracking-wide">
               Price Match Guarantee
             </h3>
             <p className="text-sm font-medium text-black/70">
-              At the end of your Project , You pay exactly what we quote
-              initially**
+              At the end of your Project , You pay exactly <br />
+              what we quote initially**
             </p>
           </div>
-          <div className="mt-8 lg:mt-0">
+          <div>
             <h3 className="mb-3 text-lg font-semibold tracking-wide">
               Transparency In Every Step
             </h3>
             <p className="text-sm font-medium text-black/70">
-              Complete transparency throughout the entire process.
+              Complete transparency throughout <br />
+              the entire process.
             </p>
           </div>
         </div>

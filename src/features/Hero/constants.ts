@@ -30,12 +30,36 @@ export const stats = [
 ];
 
 export const processSteps = [
-  { name: 'Meet our Expert' },
-  { name: 'Get free Estimate' },
-  { name: 'Initial Payment' },
-  { name: 'Get 3D visualization' },
-  { name: 'Design Approval' },
-  { name: 'Delivery in 45 Days!**' },
+  {
+    name: 'Meet our Expert',
+    label: 'Meet our\nExpert',
+    image: '/images/Meet%20our%20Expert.avif',
+  },
+  {
+    name: 'Get free Estimate',
+    label: 'Get free\nEstimate',
+    image: '/images/Get%20free%20Estimate.avif',
+  },
+  {
+    name: 'Initial Payment',
+    label: 'Initial\nPayment',
+    image: '/images/Initial%20Payment.avif',
+  },
+  {
+    name: 'Get 3D Visualization',
+    label: 'Get 3D\nVisualization',
+    image: '/images/logo3.avif',
+  },
+  {
+    name: 'Design Approval',
+    label: 'Design\nApproval',
+    image: '/images/Design%20Approval.avif',
+  },
+  {
+    name: 'Delivery in 45 Days!',
+    label: 'Delivery in\n45 Days!',
+    image: '/images/Delivery%20in%2045%20Days!.avif',
+  },
 ];
 
 export const brands = [
