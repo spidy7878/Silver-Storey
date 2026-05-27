@@ -21,13 +21,15 @@ export default async function ResidentialProjectsPage() {
   ]);
 
   const gallery =
-    page && page.gallery?.length > 0
-      ? page.gallery.map((item, i) => ({
-          id: i + 1,
-          title: item.title,
-          description: item.description,
-          image: urlFor(item.image).width(640).height(800).url(),
-        }))
+    page && page.gallerySections?.length > 0
+      ? page.gallerySections
+          .flatMap((section) => section.images ?? [])
+          .map((item, i) => ({
+            id: i + 1,
+            title: item.title,
+            description: item.description ?? '',
+            image: urlFor(item.image).width(640).height(800).url(),
+          }))
       : defaultGallery;
 
   return (

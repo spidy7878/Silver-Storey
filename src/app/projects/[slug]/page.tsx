@@ -34,11 +34,15 @@ export default async function ProjectPage({
 
   if (!page) notFound();
 
-  const gallery = (page.gallery ?? []).map((item, i) => ({
-    id: i + 1,
-    title: item.title,
-    description: item.description,
-    image: urlFor(item.image).width(640).height(800).url(),
+  const gallerySections = (page.gallerySections ?? []).map((section) => ({
+    key: section._key,
+    title: section.sectionTitle,
+    items: (section.images ?? []).map((img, i) => ({
+      id: i + 1,
+      title: img.title,
+      description: img.description ?? '',
+      image: urlFor(img.image).width(640).height(800).url(),
+    })),
   }));
 
   return (
@@ -50,7 +54,7 @@ export default async function ProjectPage({
       }
       heroTitle={page.heroTitle}
       heroSubtitle={page.heroSubtitle}
-      gallery={gallery}
+      gallerySections={gallerySections}
       projectPages={projectPages}
     />
   );

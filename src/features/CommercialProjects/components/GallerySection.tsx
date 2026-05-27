@@ -27,15 +27,18 @@ function GalleryCard({ project }: { project: GalleryProject }) {
 interface GallerySectionProps {
   /** Gallery items from Sanity — falls back to hardcoded constants when empty */
   projects?: GalleryProject[];
+  /** Admin-defined section heading — defaults to "Gallery" */
+  title?: string;
 }
 
 export default function GallerySection({
   projects = galleryProjects,
+  title = 'Gallery',
 }: GallerySectionProps) {
   return (
-    <section className="overflow-hidden bg-[#f4f4f4] pt-16 pb-32">
+    <section className="overflow-hidden bg-[#f4f4f4] pt-8 pb-10">
       <h2 className="mb-10 text-center text-3xl font-semibold tracking-tight text-black sm:text-4xl md:text-5xl">
-        Gallery
+        {title}
       </h2>
 
       {/* Marquee wrapper — hover pauses the animation */}

@@ -42,34 +42,59 @@ export const projectPage = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'gallery',
-      title: 'Gallery Images',
+      name: 'gallerySections',
+      title: 'Gallery Sections',
+      description:
+        'Add one or more gallery rows. Each section can have a custom title (e.g. "Living Room", "Bedrooms").',
       type: 'array',
       of: [
         {
           type: 'object',
           fields: [
             defineField({
-              name: 'title',
-              title: 'Card Title',
+              name: 'sectionTitle',
+              title: 'Section Title',
               type: 'string',
+              description:
+                'Heading shown above this gallery row — e.g. "Living Room Designs"',
               validation: (Rule) => Rule.required(),
             }),
             defineField({
-              name: 'description',
-              title: 'Card Description',
-              type: 'text',
-            }),
-            defineField({
-              name: 'image',
-              title: 'Image',
-              type: 'image',
-              options: { hotspot: true },
-              validation: (Rule) => Rule.required(),
+              name: 'images',
+              title: 'Images',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'title',
+                      title: 'Card Title',
+                      type: 'string',
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: 'description',
+                      title: 'Card Description',
+                      type: 'text',
+                    }),
+                    defineField({
+                      name: 'image',
+                      title: 'Image',
+                      type: 'image',
+                      options: { hotspot: true },
+                      validation: (Rule) => Rule.required(),
+                    }),
+                  ],
+                  preview: {
+                    select: { title: 'title', media: 'image' },
+                  },
+                },
+              ],
             }),
           ],
           preview: {
-            select: { title: 'title', media: 'image' },
+            select: { title: 'sectionTitle' },
           },
         },
       ],

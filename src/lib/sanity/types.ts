@@ -26,6 +26,12 @@ export interface SanityGalleryItem {
   image: SanityImageRef;
 }
 
+export interface SanityGallerySection {
+  _key: string;
+  sectionTitle: string;
+  images: SanityGalleryItem[];
+}
+
 export interface SanityProjectPage {
   _id: string;
   title: string;
@@ -33,5 +39,5 @@ export interface SanityProjectPage {
   heroTitle: string;
   heroSubtitle?: string;
   heroImage?: SanityImageRef;
-  gallery: SanityGalleryItem[];
+  gallerySections: SanityGallerySection[];
 }

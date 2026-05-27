@@ -26,11 +26,15 @@ export const projectPageBySlugQuery = /* groq */ `
     heroTitle,
     heroSubtitle,
     heroImage,
-    "gallery": gallery[] {
+    "gallerySections": gallerySections[] {
       _key,
-      title,
-      description,
-      image
+      sectionTitle,
+      "images": images[] {
+        _key,
+        title,
+        description,
+        image
+      }
     }
   }
 `;
