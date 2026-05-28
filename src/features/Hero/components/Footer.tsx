@@ -6,11 +6,17 @@ export default function Footer() {
   return (
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-black">
-        <img
-          src="/images/laptop.avif"
-          alt="Silver Storey Kitchen Background"
+        <video
           className="absolute inset-0 h-full w-full object-cover opacity-60"
-        />
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        >
+          <source src="videos/OFFICE full_1.mp4" type="video/mp4" />
+        </video>
       </div>
 
       <div className="relative z-10 flex w-full flex-col items-center justify-center px-4 text-center">
