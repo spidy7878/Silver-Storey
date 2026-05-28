@@ -12,7 +12,7 @@ export default function RoomGallery() {
     <div className="mx-auto max-w-360 px-6 py-24 sm:py-32">
       {/* Header Row */}
       <div className="mb-20 flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-24">
-        <h2 className="font-serif text-4xl leading-tight tracking-tight text-[#615147] sm:text-5xl lg:w-1/2">
+        <h2 className="font-sans text-4xl leading-tight tracking-tight text-[#615147] sm:text-5xl lg:w-1/2">
           ESCAPE TO
           <br />
           TIMELESS LUXURY
@@ -54,7 +54,7 @@ export default function RoomGallery() {
                 key={room.label}
                 className="flex w-[200px] shrink-0 flex-col"
               >
-                <h3 className="mb-3 font-serif text-base font-medium tracking-wide text-[#615147]">
+                <h3 className="mb-3 font-sans text-base font-medium tracking-wide text-[#615147]">
                   {room.label}
                 </h3>
                 <div className="aspect-4/5 overflow-hidden rounded-xl shadow-sm">
@@ -93,7 +93,7 @@ export default function RoomGallery() {
       <div className="hidden grid-cols-2 items-start gap-4 sm:grid md:grid-cols-4 lg:gap-6">
         {/* 2 BHK */}
         <div className="flex flex-col pt-12">
-          <h3 className="mb-4 font-serif text-xl font-medium tracking-wide text-[#615147]">
+          <h3 className="mb-4 font-sans text-xl font-medium tracking-wide text-[#615147]">
             2 BHK
           </h3>
           <div className="aspect-4/5 w-full overflow-hidden bg-black/5 text-center shadow-sm">
@@ -107,7 +107,7 @@ export default function RoomGallery() {
 
         {/* 3 BHK */}
         <div className="flex flex-col">
-          <h3 className="mb-4 font-serif text-xl font-medium tracking-wide text-[#615147]">
+          <h3 className="mb-4 font-sans text-xl font-medium tracking-wide text-[#615147]">
             3 BHK
           </h3>
           <div className="aspect-2/3 w-full overflow-hidden bg-black/5 text-center shadow-sm">
@@ -122,7 +122,7 @@ export default function RoomGallery() {
         {/* 4 BHK */}
         <div className="flex flex-col pt-8">
           <div className="mb-4 flex items-center gap-4">
-            <h3 className="font-serif text-xl font-medium tracking-wide text-[#615147]">
+            <h3 className="font-sans text-xl font-medium tracking-wide text-[#615147]">
               4 BHK
             </h3>
           </div>
@@ -137,7 +137,7 @@ export default function RoomGallery() {
 
         {/* 5 BHK */}
         <div className="flex flex-col pt-4">
-          <h3 className="mb-4 font-serif text-xl font-medium tracking-wide text-[#615147]">
+          <h3 className="mb-4 font-sans text-xl font-medium tracking-wide text-[#615147]">
             5 BHK
           </h3>
           <div className="aspect-square w-full overflow-hidden bg-black/5 text-center shadow-sm sm:aspect-4/5">
