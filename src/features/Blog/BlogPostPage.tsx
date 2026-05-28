@@ -1,10 +1,13 @@
 'use client';
 
+import React, { useState } from 'react';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { PortableText } from 'next-sanity';
 import type { PortableTextComponents } from 'next-sanity';
 import type { BlogPostFull } from './types';
+import HeroControls from '../Hero/components/HeroControls';
+import MenuOverlay from '../Hero/components/MenuOverlay';
 
 // ── Read-time estimate ────────────────────────────────────────────────────────
 
@@ -147,9 +150,11 @@ function ShareIcon() {
 // ── Component ─────────────────────────────────────────────────────────────────
 interface Props {
   post: BlogPostFull;
+  projectPages?: { title: string; slug: string }[];
 }
 
-export default function BlogPostPage({ post }: Props) {
+export default function BlogPostPage({ post, projectPages = [] }: Props) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const readTime = post.body ? estimateReadTime(post.body) : 1;
   const authorInitial = post.author ? post.author[0]?.toUpperCase() : 'A';
 
@@ -255,6 +260,12 @@ export default function BlogPostPage({ post }: Props) {
           </article>
         )}
       </div>
+      <HeroControls onMenuClick={() => setIsMenuOpen(true)} />
+      <MenuOverlay
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        projectPages={projectPages}
+      />
     </div>
   );
 }

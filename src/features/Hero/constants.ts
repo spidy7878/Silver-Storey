@@ -63,17 +63,14 @@ export const processSteps = [
 ];
 
 export const brands = [
-  { name: 'ebco', font: 'font-serif lowercase' },
-  { name: 'Greenply', font: 'font-cursive capitalize' },
-  { name: 'Hettich', font: 'font-sans font-bold text-gray-800' },
-  { name: 'HAVELLS', font: 'font-sans font-black tracking-widest' },
-  { name: 'asianpaints', font: 'font-sans font-medium lowercase' },
-  {
-    name: 'PHILIPS',
-    font: 'font-sans font-black tracking-widest text-[#0b5c94]',
-  },
-  { name: 'EVARA', font: 'font-serif tracking-widest' },
-  { name: 'KOHLER', font: 'font-sans font-bold tracking-widest' },
+  { name: 'ebco', image: '/images/ebco.avif' },
+  { name: 'Greenply', image: '/images/download-Photoroom.avif' },
+  { name: 'Hettich', image: '/images/hettich.avif' },
+  { name: 'HAVELLS', image: '/images/Havells-logo.avif' },
+  { name: 'asianpaints', image: '/images/asianpaints%20.avif' },
+  { name: 'PHILIPS', image: '/images/philips.avif' },
+  { name: 'EVARA', image: '/images/evara%20.avif' },
+  { name: 'KOHLER', image: '/images/KohlerLogoImage-Photoroom.avif' },
 ];
 
 export const founders = [

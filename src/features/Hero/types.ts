@@ -23,7 +23,7 @@ export interface ProcessStep {
 
 export interface Brand {
   name: string;
-  font: string;
+  image: string;
 }
 
 export interface Founder {

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import ProcessStepCard from './ProcessStepCard';
 import { processSteps } from '../constants';
 
@@ -6,8 +7,8 @@ export default function WarrantySection() {
   return (
     <div className="relative mt-8">
       {/* Process Steps Grid */}
-      <div className="relative mx-auto max-w-360 px-48">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6 lg:gap-6">
+      <div className="relative mx-auto max-w-360 px-4 sm:px-8 md:px-16 lg:px-48">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 lg:gap-6">
           {processSteps.map((step) => (
             <ProcessStepCard
               key={step.name}
@@ -24,9 +25,12 @@ export default function WarrantySection() {
         <h2 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
           10 Years of Warranty !
         </h2>
-        <button className="rounded-full border border-black bg-transparent px-8 py-2.5 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white">
+        <Link
+          href="/how-it-works"
+          className="rounded-full border border-black bg-transparent px-8 py-2.5 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white"
+        >
           How It Works
-        </button>
+        </Link>
       </div>
 
       <div className="relative mt-12 flex flex-col items-center justify-center gap-12 lg:flex-row lg:items-center lg:gap-8">

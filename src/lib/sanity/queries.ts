@@ -78,3 +78,9 @@ export const blogPostBySlugQuery = /* groq */ `
 export const allBlogSlugsQuery = /* groq */ `
   *[_type == "blogPost"] { "slug": slug.current }
 `;
+
+export const brochureQuery = /* groq */ `
+  *[_type == "brochure"][0] {
+    "url": file.asset->url
+  }
+`;

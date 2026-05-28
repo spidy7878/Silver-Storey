@@ -28,7 +28,7 @@ export default function SocialBar({ className = '' }: { className?: string }) {
       </a>
 
       <a
-        href="#estimate"
+        href="/contact#contact-form"
         className="flex h-9 items-center justify-center rounded-sm bg-white px-5 text-[10px] font-semibold tracking-wider text-black shadow-lg transition-transform hover:scale-105 sm:text-[11px]"
       >
         GET FREE ESTIMATE

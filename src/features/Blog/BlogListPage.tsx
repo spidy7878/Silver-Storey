@@ -1,9 +1,15 @@
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import type { BlogPost } from './types';
+import HeroControls from '../Hero/components/HeroControls';
+import MenuOverlay from '../Hero/components/MenuOverlay';
 
 interface Props {
   posts: BlogPost[];
+  projectPages?: { title: string; slug: string }[];
 }
 
 function CalendarIcon() {
@@ -27,7 +33,9 @@ function CalendarIcon() {
   );
 }
 
-export default function BlogListPage({ posts }: Props) {
+export default function BlogListPage({ posts, projectPages = [] }: Props) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#f0efec] px-6 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl">
@@ -95,6 +103,12 @@ export default function BlogListPage({ posts }: Props) {
           </div>
         )}
       </div>
+      <HeroControls onMenuClick={() => setIsMenuOpen(true)} />
+      <MenuOverlay
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        projectPages={projectPages}
+      />
     </div>
   );
 }

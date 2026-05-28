@@ -45,7 +45,7 @@ export default function AboutUsPage({
           Transform your space effortlessly with our expert interior design
           services, tailored to reflect your unique style and vision
         </p>
-        <Link href="/contact">
+        <Link href="/contact#contact-form">
           <button className="rounded-full border border-black/80 bg-transparent px-8 py-2.5 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white">
             Get Free Estimate
           </button>

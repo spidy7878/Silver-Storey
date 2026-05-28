@@ -27,12 +27,15 @@ interface HeroProps {
   videos?: SanityVideo[];
   /** Dynamic project pages from Sanity — added to the nav menu automatically */
   projectPages?: { title: string; slug: string }[];
+  /** Brochure PDF download URL from Sanity */
+  brochureUrl?: string;
 }
 
 export default function Hero({
   categories = [],
   videos = [],
   projectPages = [],
+  brochureUrl,
 }: HeroProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { currentSlide, nextSlide, prevSlide, setCurrentSlide } = useSlider(
@@ -116,7 +119,7 @@ export default function Hero({
         />
 
         {/* 11. Our Creative Founders Section */}
-        <FoundersSection />
+        <FoundersSection brochureUrl={brochureUrl} />
       </div>
 
       {/* 12. Footer Section */}

@@ -95,7 +95,7 @@ export default function HeroControls({
 
       {/* Right: Contact */}
       <a
-        href="#contact"
+        href="/contact#contact-form"
         className="fixed right-6 bottom-2 z-30 hidden items-center gap-2 rounded bg-white px-4 py-2.5 text-sm font-medium text-black shadow-lg transition-transform hover:scale-105 sm:flex"
       >
         <svg

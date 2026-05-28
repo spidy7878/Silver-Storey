@@ -6,13 +6,14 @@ import {
   categoriesQuery,
   videosQuery,
   allProjectPagesQuery,
+  brochureQuery,
 } from '@/lib/sanity/queries';
 import type { SanityCategory, SanityVideo } from '@/lib/sanity/types';
 
 export const revalidate = 0; // always fetch fresh from Sanity
 
 export default async function Home() {
-  const [rawCategories, videos, projectPages] = await Promise.all([
+  const [rawCategories, videos, projectPages, brochure] = await Promise.all([
     sanityClient.fetch<SanityCategory[]>(categoriesQuery).catch((e) => {
       console.error('CATEGORIES FETCH ERROR:', e);
       return [] as SanityCategory[];
@@ -31,6 +32,7 @@ export default async function Home() {
         console.error('[Sanity] PROJECT PAGES ERROR:', e);
         return [] as { title: string; slug: string }[];
       }),
+    sanityClient.fetch<{ url: string } | null>(brochureQuery).catch(() => null),
   ]);
 
   const categories = rawCategories.map((cat) => ({
@@ -42,6 +44,11 @@ export default async function Home() {
   }));
 
   return (
-    <Hero categories={categories} videos={videos} projectPages={projectPages} />
+    <Hero
+      categories={categories}
+      videos={videos}
+      projectPages={projectPages}
+      brochureUrl={brochure?.url}
+    />
   );
 }

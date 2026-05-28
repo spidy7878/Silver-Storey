@@ -1,6 +1,10 @@
 import { notFound } from 'next/navigation';
 import { sanityClient } from '@/lib/sanity/client';
-import { blogPostBySlugQuery, allBlogSlugsQuery } from '@/lib/sanity/queries';
+import {
+  blogPostBySlugQuery,
+  allBlogSlugsQuery,
+  allProjectPagesQuery,
+} from '@/lib/sanity/queries';
 import BlogPostPage from '@/features/Blog/BlogPostPage';
 import type { BlogPostFull } from '@/features/Blog/types';
 
@@ -19,12 +23,14 @@ export default async function BlogPostRoute({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post: BlogPostFull | null = await sanityClient.fetch(
-    blogPostBySlugQuery,
-    { slug },
-  );
+  const [post, projectPages] = await Promise.all([
+    sanityClient.fetch<BlogPostFull | null>(blogPostBySlugQuery, { slug }),
+    sanityClient
+      .fetch<{ title: string; slug: string }[]>(allProjectPagesQuery)
+      .catch(() => []),
+  ]);
 
   if (!post) notFound();
 
-  return <BlogPostPage post={post} />;
+  return <BlogPostPage post={post} projectPages={projectPages} />;
 }

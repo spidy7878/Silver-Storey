@@ -1,44 +1,9 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { brands } from '../constants';
 
 export default function BrandsMarquee() {
-  const brandsRef = useRef<HTMLDivElement | null>(null);
-  const brandsInnerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const container = brandsRef.current;
-    const inner = brandsInnerRef.current;
-    if (!container || !inner) return;
-
-    let rafId: number | null = null;
-    let last = performance.now();
-    const speed = 40; // pixels per second - tweakable
-
-    const c = container as HTMLDivElement;
-    const i = inner as HTMLDivElement;
-
-    function step(now: number) {
-      const delta = now - last;
-      last = now;
-      // advance scrollLeft
-      c.scrollLeft += (speed * delta) / 1000;
-      // when we've scrolled past half (since content is duplicated), jump back by half width
-      const half = i.scrollWidth / 2;
-      if (half && c.scrollLeft >= half) {
-        c.scrollLeft -= half;
-      }
-      rafId = requestAnimationFrame(step);
-    }
-
-    rafId = requestAnimationFrame(step);
-
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, []);
-
   return (
     <div className="relative cursor-default bg-white pb-32 text-center">
       {/* Convex White Wave Divider */}
@@ -57,26 +22,34 @@ export default function BrandsMarquee() {
         Our Preferred Global Brands
       </h3>
 
-      {/* Brands Container */}
-      <div className="mx-auto max-w-400 overflow-hidden px-6">
-        <div className="overflow-hidden">
-          <div className="flex w-full items-center">
-            <div className="w-full overflow-hidden">
-              <div
-                className="animate-marquee no-scrollbar whitespace-nowrap"
-                ref={brandsRef}
-              >
-                {brands.concat(brands).map((brand, idx) => (
-                  <span
-                    key={idx}
-                    className={`mx-8 inline-block text-2xl sm:text-3xl md:text-4xl ${brand.font}`}
-                    aria-hidden={idx >= brands.length}
-                  >
-                    {brand.name}
-                  </span>
-                ))}
-              </div>
-            </div>
+      {/* Brands Marquee */}
+      <div className="overflow-hidden">
+        <div
+          className="flex hover:[animation-play-state:paused]"
+          style={{ animation: 'marquee 25s linear infinite' }}
+        >
+          {/* Copy 1 */}
+          <div className="flex shrink-0 items-center gap-12 pr-12">
+            {brands.map((brand) => (
+              <img
+                key={brand.name}
+                src={brand.image}
+                alt={brand.name}
+                className="h-16 w-auto object-contain sm:h-20 md:h-24"
+              />
+            ))}
+          </div>
+          {/* Copy 2 — seamless loop */}
+          <div className="flex shrink-0 items-center gap-12 pr-12">
+            {brands.map((brand) => (
+              <img
+                key={`clone-${brand.name}`}
+                src={brand.image}
+                alt={brand.name}
+                className="h-16 w-auto object-contain sm:h-20 md:h-24"
+                aria-hidden="true"
+              />
+            ))}
           </div>
         </div>
       </div>

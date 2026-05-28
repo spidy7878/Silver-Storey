@@ -1,7 +1,11 @@
 import React from 'react';
 import { founders } from '../constants';
 
-export default function FoundersSection() {
+export default function FoundersSection({
+  brochureUrl,
+}: {
+  brochureUrl?: string;
+}) {
   return (
     <div className="cursor-default bg-white pt-0 pb-16 text-center sm:pb-24">
       <h2 className="mb-12 text-3xl font-light tracking-wide text-black sm:mb-16 sm:text-4xl">
@@ -112,9 +116,15 @@ export default function FoundersSection() {
           unique. Share its core values and what this site has to offer.
         </p>
 
-        <button className="rounded-full border border-black/80 bg-transparent px-8 py-2.5 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white">
+        <a
+          href={brochureUrl ?? '#'}
+          {...(brochureUrl
+            ? { target: '_blank', rel: 'noopener noreferrer', download: true }
+            : {})}
+          className="rounded-full border border-black/80 bg-transparent px-8 py-2.5 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white"
+        >
           Download
-        </button>
+        </a>
       </div>
     </div>
   );
