@@ -35,7 +35,7 @@ const LINK_STYLE: React.CSSProperties = {
   fontSize: 'clamp(14px, 2.5vw, 30px)',
   fontWeight: 500,
   letterSpacing: '0.01em',
-  color: '#ffffff',
+  color: '#000000',
   textDecoration: 'none',
   lineHeight: 1.25,
   transition: 'opacity 0.15s',
@@ -63,8 +63,7 @@ export default function MenuOverlay({
     <div
       className="fixed inset-0 z-100 flex h-screen flex-col overflow-hidden"
       style={{
-        background:
-          'linear-gradient(90deg, rgba(210,195,178,0.30) 0%, rgba(255,255,255,0.18) 28%, rgba(255,255,255,0.18) 72%, rgba(210,195,178,0.30) 100%)',
+        background: 'rgba(180, 158, 132, 0.55)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
       }}
@@ -84,13 +83,7 @@ export default function MenuOverlay({
       </div>
 
       {/* Navigation */}
-      <nav
-        className="flex flex-1 items-center justify-center"
-        style={{
-          background:
-            'linear-gradient(180deg, transparent 0%, rgba(30,24,18,0.70) 14%, rgba(30,24,18,0.70) 86%, transparent 100%)',
-        }}
-      >
+      <nav className="flex flex-1 items-center justify-center">
         <ul
           className="w-full max-w-3xl px-10 text-center"
           style={{
@@ -154,14 +147,14 @@ export default function MenuOverlay({
         <button
           onClick={onClose}
           aria-label="Close menu"
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 transition-all duration-200 hover:scale-105 hover:bg-white/30"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-xl ring-2 ring-orange-300 transition-all duration-200 hover:scale-105 hover:bg-white/90"
         >
           <svg
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="white"
+            stroke="#c2410c"
             strokeWidth="1.6"
             aria-hidden
           >

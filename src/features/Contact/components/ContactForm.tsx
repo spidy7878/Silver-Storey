@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { toast } from 'sonner';
-import CalendlyModal from '@/components/CalendlyModal';
 
 // ── Country data ──────────────────────────────────────────────────────────────
 interface Country {
@@ -199,7 +198,6 @@ export default function ContactForm() {
   const [address, setAddress] = useState('');
   const [budget, setBudget] = useState('');
   const [loading, setLoading] = useState(false);
-  const [calendlyOpen, setCalendlyOpen] = useState(false);
 
   const numbersOnly = (e: React.FormEvent<HTMLInputElement>) => {
     e.currentTarget.value = e.currentTarget.value.replace(/\D/g, '');
@@ -247,10 +245,7 @@ export default function ContactForm() {
 
   return (
     <>
-      <CalendlyModal
-        isOpen={calendlyOpen}
-        onClose={() => setCalendlyOpen(false)}
-      />
+      {/* Calendly modal removed in favor of direct Calendly links */}
 
       <div
         id="contact-form"
@@ -264,12 +259,14 @@ export default function ContactForm() {
           <p className="mb-8 text-sm font-medium text-black/70 sm:text-base">
             It&apos;s time to live your dreams!
           </p>
-          <button
-            onClick={() => setCalendlyOpen(true)}
+          <a
+            href="https://calendly.com/silverstorey/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mb-16 animate-bounce rounded-full border border-black bg-transparent px-8 py-2.5 text-sm font-medium transition-colors [animation-duration:1.8s] [animation-timing-function:ease-in-out] hover:bg-black hover:text-white"
           >
             Book Now
-          </button>
+          </a>
         </div>
 
         {/* Form */}

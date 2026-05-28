@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 
 export default function BookConsultation() {
   return (
@@ -12,12 +11,14 @@ export default function BookConsultation() {
       <p className="mb-8 text-sm font-medium text-black/70 sm:text-base">
         It&apos;s time to live your dreams!
       </p>
-      <Link
-        href="/contact#contact-form"
+      <a
+        href="https://calendly.com/silverstorey/30min"
+        target="_blank"
+        rel="noopener noreferrer"
         className="animate-bounce rounded-full border border-black bg-transparent px-8 py-2.5 text-sm font-medium transition-colors [animation-duration:1.8s] [animation-timing-function:ease-in-out] hover:bg-black hover:text-white"
       >
         Book Now
-      </Link>
+      </a>
     </div>
   );
 }
